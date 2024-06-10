@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}- Job Detail{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ job.title }}</h5>
+                <p class="card-text"><small class="text-muted">Posted on: {{ job.date|date:"F d, Y" }}</small></p>
+                <p class="card-text">Salary: ${{ job.salary }}</p>
+                
+                <!-- New: Author and Company Info -->
+                <p class="card-text">
+                    <strong>Author:</strong> {{ job.author.name }}<br>
+                    <strong>Company:</strong> {{ job.author.company }}<br>
+                    <strong>Designation:</strong> {{ job.author.designation }}
+                </p>
+    
+                {% if job.location %}
+                    <p class="card-text">Location: {{ job.location.street }}, {{ job.location.city }}, {{ job.location.state }}, {{ job.location.zip }}, {{ job.location.country }}</p>
+                {% endif %}
+                {% if job.expiry %}
+                    <p class="card-text">Expires on: {{ job.expiry|date:"F d, Y" }}</p>
+                {% endif %}
+                {% if job.skills.all %}
+                    <p class="card-text">Skills:
+                        <ul>
+                            {% for skill in job.skills.all %}
+                                <li>{{ skill.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </p>
+                {% endif %}
+                <p class="card-text">{{ job.description }}</p>
+            </div>
+        </div>
+        <a href="{% url 'home' %}" class="btn btn-primary mt-3">Back to Home</a>
+    </div>
+    
+{% endblock content %}  

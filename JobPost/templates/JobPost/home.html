@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            {% for job in jobs %}
+            <div class="col-12 mb-3">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div class="job-info">
+                            <h5 class="card-title mb-2">
+                                <a href="{% url 'job_detail' job.slug %}" class="text-primary">{{ job.title }}</a>
+                            </h5>
+                            <div class="d-flex align-items-center text-muted">
+                                <span class="mr-4">
+                                    <i class="bi bi-geo-alt-fill"></i> {{ job.location.city }}, {{ job.location.state }}
+                                </span>
+                                <span class="mr-4">
+                                    <i class="bi bi-currency-dollar"></i> ${{ job.salary}}/Pm
+                                </span>
+                                <span>
+                                    <i class="bi bi-clock-fill"></i> {{ job.type }}
+                                </span> <!-- Adjust based on job type if available -->
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{% url 'job_detail' job.slug %}" class="btn btn-primary">View Job</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
